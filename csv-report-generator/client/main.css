@@ -1,0 +1,16 @@
+textarea {
+  margin: 10px auto 20px auto;
+}
+
+div {
+  text-align: center;
+}
+h1 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
