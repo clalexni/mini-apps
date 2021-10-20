@@ -1,4 +1,7 @@
 const http = require('http');
+const urlParser = require('url');
+const fs = require('fs');
+
 
 //headers to allows CORS requests
 const headers = {
@@ -30,23 +33,44 @@ const handleRequest = function(req, res) {
   console.log(`Endpoint: ${req.url} Method: ${req.method}`);
 
   // redirect users to /quote if they try to hit the homepage. This should already work, no changes needed
-  if (req.url == '/') {
+  if (req.url == '/' && req.method == 'GET') {
     console.log('redirecting');
+
+    // fs.readFile('../client/index.html', (err, data) => {
+    //   if (err) {
+    //     console.log('Error in reading html', err);
+    //   } else {
+    //     res.writeHead(200, {'Content-Type': 'text/html'});
+    //     res.end(data);
+    //   }
+    // });
+
     res.writeHead(301, {...headers, Location: `http://localhost:${port}/quote`}) //redirect to quote
     res.end();
   }
-
-  // TODO: GET ONE
-  if ((req.url == '/quote/' || req.url == '/quote') && req.method == "FILL ME IN") {
-    //YOUR CODE HERE
-
+  // need to change this to elseif to resolve write after end error
+  else if ((req.url == '/quote/' || req.url == '/quote') && req.method == 'GET') {
+    var data = {quote: quotes[getRandomInt(0, quotes.length)]};
+    res.writeHead(200, {...headers, 'Content-Type': 'application/json'}); // this solves CORS
+    res.end(JSON.stringify(data));
+  } 
+  else if ((req.url == '/quote/' || req.url == '/quote') && req.method == 'POST') {
+    var data = '';
+    req.on('data', (chunk) => {
+      // need to select Content-Length in postman's header in order to work
+      data += chunk.toString();
+    });
+    req.on('end', function() {
+      quotes.push(JSON.parse(data).quote);
+      console.log(quotes);
+      res.writeHead(201, {...headers, 'Content-Type': 'text/plain'});
+      res.end(data);
+    });
   }
-  // TODO: POST/CREATE
-  else if ((req.url == 'FILL ME IN' || req.url == 'FILL ME IN') && req.method == "FILL ME IN") {
-    //YOUR CODE HERE
-  }
-
-//CATCH ALL ROUTE
+  else if (req.method === 'OPTIONS') {
+    res.writeHead(200, headers);
+    res.end();
+  } 
   else {
     res.writeHead(404,headers);
     res.end('Page not found');
