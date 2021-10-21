@@ -7,13 +7,13 @@
 
 <body>
   <h1>CSV Report Generator</h1>
-  <form>
+  <form action='/upload_json' method='POST'>
     <div>
       <label for='textarea'>Enter JSON to get CSV:</label>
-      <textarea id='textarea' rows='5' cols='33'>Enter json here...</textarea>
+      <textarea name='data' id='textarea' rows='5' cols='33'>Enter json here...</textarea>
     </div>
     <div>
-      <button>Submit</button>
+      <input type='submit' value='Submit'>
     </div>
   </form>
   <script src='app.js'></script>
