@@ -18,9 +18,10 @@ app.use(express.static(path.join(__dirname, 'client'))); //serve static files
 // })
 
 app.post('/upload_json', (req, res) => {
-  console.log(JSON.parse(req.body.data));
+  //console.log(JSON.parse(req.body.data));
+  console.log(req.body);
   // generate csv
-  var csvData = csvGenerator(JSON.parse(req.body.data));
+  var csvData = csvGenerator(req.body);
   try {
     var json2csv = new Parser({fields: csvData.fields});
     var csvFile = json2csv.parse(csvData.records);

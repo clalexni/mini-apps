@@ -14,3 +14,8 @@ label {
   margin-right: auto;
   margin-left: auto;
 }
+
+#downloadBtn {
+  margin: 20px auto;
+  display: block;
+}

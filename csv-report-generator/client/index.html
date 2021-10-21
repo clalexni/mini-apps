@@ -3,20 +3,24 @@
 <head>
   <title>CSV Report Generator</title>
   <link rel='stylesheet' href='main.css'>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 </head>
 
 <body>
   <h1>CSV Report Generator</h1>
-  <form action='/upload_json' method='POST'>
+  <!-- <form method='POST' action='/upload_json'> -->
+  <form>
     <div>
       <label for='textarea'>Enter JSON to get CSV:</label>
       <textarea name='data' id='textarea' type='reset' rows='20' cols='60'>Enter json here...</textarea>
     </div>
     <div>
-      <input type='submit' value='Submit'>
+      <input type='submit' id='submitBtn' value='Submit'>
     </div>
   </form>
-  <script src='app.js'></script>
+  <button id='downloadBtn'>Download CSV</button>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src='app.js'></script>
 </body>
 </html>
