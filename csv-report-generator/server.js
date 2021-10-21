@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'client'))); //serve static files
 
 app.post('/upload_json', (req, res) => {
   //console.log(JSON.parse(req.body.data));
-  console.log(req.body);
+  //console.log(req.body);
   // generate csv
   var csvData = csvGenerator(req.body);
   try {
@@ -30,7 +30,7 @@ app.post('/upload_json', (req, res) => {
     res.status(201).send(csvFile);
   } catch(err) {
     console.err(err);
-    res.status(201).send();
+    res.status(500).send(); // should this be 500?
   }
 });
 
